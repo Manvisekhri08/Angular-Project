@@ -33,6 +33,7 @@ ngOnInit() {
      } else {
        this.mode = 'create';
        this.postId = null;
+       this.post =  {id: '', title: '', content: ''};
      }
   });
 }
