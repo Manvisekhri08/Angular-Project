@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { Post } from './post.model';
 
 @Injectable({ providedIn: 'root' })
@@ -35,6 +34,10 @@ export class PostService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+
+getPost(id: string) {
+return {...this.posts.find(p => p.id === id)};
+}
 
   addPost(title1: string, content1: string) {
     const post: Post = { id: null, title: title1, content: content1 };
