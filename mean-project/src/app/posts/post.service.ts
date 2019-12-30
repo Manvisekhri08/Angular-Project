@@ -51,6 +51,13 @@ return {...this.posts.find(p => p.id === id)};
       });
   }
 
+updatePost(id1: string, title1: string, content1: string) {
+  const post: Post = { id: id1 , title: title1 , content: content1};
+  this.http.put('http://localhost:3000/api/posts/' + id1 , post)
+.subscribe(response => console.log(response));
+}
+
+
   deletePost(postId: string) {
     this.http.delete('http://localhost:3000/api/posts/' + postId)
       .subscribe(() => {
