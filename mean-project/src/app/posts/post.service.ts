@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from './post.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getPosts() {
     this.http
@@ -48,6 +49,7 @@ return this.http.get<{_id: string, title: string, content: string}>('http://loca
         post.id = id;
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
+        this.router.navigate(['/']);
       });
   }
 
@@ -60,6 +62,7 @@ const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
 updatedPosts[oldPostIndex] = post;
 this.posts = updatedPosts;
 this.postsUpdated.next([...this.posts]);
+this.router.navigate(['/']);
 });
 }
 
