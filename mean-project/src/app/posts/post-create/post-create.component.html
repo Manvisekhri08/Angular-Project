@@ -19,6 +19,11 @@
 
   </mat-form-field>
 
+  <div>
+    <button mat-stroked-button type="button" (click)="fileSelector.click()">Choose Image</button>
+    <input type="file" #fileSelector>
+  </div>
+
   <mat-form-field>
 
     <textarea
