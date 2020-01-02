@@ -18,7 +18,7 @@
 
   <div>
     <button mat-stroked-button type="button" (click)="fileSelector.click()">Choose Image</button>
-    <input type="file" #fileSelector>
+    <input type="file" #fileSelector (change)= "onImagePicked($event)">
   </div>
 
   <mat-form-field>
