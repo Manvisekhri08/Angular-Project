@@ -22,7 +22,8 @@ export class PostService {
           return {
             title: post.title,
             content: post.content,
-            id: post._id
+            id: post._id,
+            imagePath: post.imagePath
           };
         });
       }))
@@ -46,9 +47,17 @@ return this.http.get<{_id: string, title: string, content: string}>('http://loca
     postData.append('content', content1);
     postData.append('image', image, title1);
     this.http
-      .post<{ message: string, postId: string }>('http://localhost:3000/api/posts', postData)
+      .post<{ message: string, post: Post }>
+      ('http://localhost:3000/api/posts',
+      postData
+      )
       .subscribe(responseData => {
-        const post: Post = {id: responseData.postId, title: title1, content: content1};
+        const post: Post = {
+          id: responseData.post.id,
+          title: title1,
+          content: content1,
+          imagePath: responseData.post.imagePath
+        };
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/']);
@@ -56,7 +65,7 @@ return this.http.get<{_id: string, title: string, content: string}>('http://loca
   }
 
 updatePost(id1: string, title1: string, content1: string) {
-  const post: Post = { id: id1 , title: title1 , content: content1};
+  const post: Post = { id: id1 , title: title1 , content: content1, imagePath: null};
   this.http.put('http://localhost:3000/api/posts/' + id1 , post)
 .subscribe(response => {
 const updatedPosts = [...this.posts];
