@@ -38,7 +38,8 @@ export class PostService {
   }
 
 getPost(id: string) {
-return this.http.get<{_id: string, title: string, content: string}>('http://localhost:3000/api/posts/' + id);
+return this.http.get<{_id: string, title: string, content: string, imagePath: string}>
+('http://localhost:3000/api/posts/' + id);
 }
 
   addPost(title1: string, content1: string, image: File) {
@@ -64,12 +65,32 @@ return this.http.get<{_id: string, title: string, content: string}>('http://loca
       });
   }
 
-updatePost(id1: string, title1: string, content1: string) {
-  const post: Post = { id: id1 , title: title1 , content: content1, imagePath: null};
-  this.http.put('http://localhost:3000/api/posts/' + id1 , post)
+updatePost(id1: string, title1: string, content1: string, image: File | string) {
+  let postData: Post | FormData;
+  if ( typeof image === 'object') {
+    postData = new FormData();
+    postData.append('id', id1);
+    postData.append('title', title1);
+    postData.append('content', content1);
+    postData.append('image', image, title1);
+  } else {
+  postData = {
+    id: id1 ,
+    title: title1 ,
+    content: content1,
+    imagePath: image
+  };
+  }
+  this.http.put('http://localhost:3000/api/posts/' + id1 , postData)
 .subscribe(response => {
 const updatedPosts = [...this.posts];
-const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+const oldPostIndex = updatedPosts.findIndex(p => p.id === id1);
+const post: Post  = {
+  id: id1 ,
+  title: title1 ,
+  content: content1,
+  imagePath: ''
+};
 updatedPosts[oldPostIndex] = post;
 this.posts = updatedPosts;
 this.postsUpdated.next([...this.posts]);
