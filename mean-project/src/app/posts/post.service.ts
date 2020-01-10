@@ -16,7 +16,7 @@ export class PostService {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; posts: any, maxPosts: number }>(
-        'http://localhost:3000/api/posts' + queryParams
+        'http://localhost:3000/api/posts/' + queryParams
       )
       .pipe(
         map(
