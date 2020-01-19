@@ -50,7 +50,8 @@ image: new FormControl(null, {
           id: postData._id,
           title: postData.title,
           content: postData.content,
-          imagePath: postData.imagePath
+          imagePath: postData.imagePath,
+          creator: postData.creator
         };
         this.form.setValue({
           title: this.post.title,
@@ -61,7 +62,7 @@ image: new FormControl(null, {
      } else {
        this.mode = 'create';
        this.postId = null;
-       this.post =  {id: '', title: '', content: '', imagePath: ''};
+       this.post =  {id: '', title: '', content: '', imagePath: '', creator: ''};
      }
   });
 }
