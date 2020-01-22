@@ -52,6 +52,11 @@ router.post(
           id: createdPost._id
         }
       });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Creating a post failed!'
+      });
     });
   }
 );
@@ -81,6 +86,11 @@ router.put(
       } else {
       res.status(401).json({ message: "Not authorised!" });
       }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Couldnot update post!'
+      });
     });
   }
 );
@@ -105,6 +115,11 @@ postQuery
         posts: fetchedPosts,
         maxPosts: count
       })
+    })
+    .catch(error => {
+     res.status(500).json({
+       message: 'Fetching posts failed!'
+     });
     });
   });
 
@@ -115,6 +130,11 @@ router.get("/:id", (req, res, next) => {
     } else {
       res.status(404).json({ message: "Post not found!" });
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching post failed!'
+    });
   });
 });
 
@@ -126,6 +146,11 @@ router.delete("/:id", checkAuth, (req, res, next) => {
     } else {
     res.status(401).json({ message: "Not authorised!" });
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching posts failed!'
+    });
   });
 });
 
