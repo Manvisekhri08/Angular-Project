@@ -10,7 +10,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://Manvi:4f1gZKhLRPfOmINz@cluster0-syvbs.mongodb.net/test?retryWrites=true&w=majority",{ useUnifiedTopology: true, useNewUrlParser: true}
+    "mongodb+srv://Manvi:" + process.env.MONGO_ATLAS_PW +"@cluster0-syvbs.mongodb.net/test?retryWrites=true&w=majority",{ useUnifiedTopology: true, useNewUrlParser: true}
   )
   .then(() => {
     console.log("Connected to database!");
